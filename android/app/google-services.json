@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1042514416337",
+    "project_id": "logs-edb2c",
+    "storage_bucket": "logs-edb2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042514416337:android:d054b41fa5d121bcf62bf0",
+        "android_client_info": {
+          "package_name": "com.example.logs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042514416337-59mrlkc31vuqt355057vpg78oqbblcsv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQZ8teEcjxLf5JL7_n-pl6ntgg2xAe_V8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042514416337-59mrlkc31vuqt355057vpg78oqbblcsv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042514416337-2evqq3sc6gb4lq0bm0vbemtnd14fipgi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.logs"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
