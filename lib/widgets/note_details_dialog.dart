@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logs/models/note.dart';
 
+import '../record/audio_player.dart';
+
 class NoteDetailsDialog extends StatelessWidget {
   const NoteDetailsDialog({
     super.key,
@@ -55,12 +57,14 @@ class NoteDetailsDialog extends StatelessWidget {
                     Text(note.description!),
                     Text('Platform Used: ${note.platform!}'),
                     const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: (){},
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 20)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: AudioPlayer(
+                        source: 'https://oqljocyvbovhkcpdllmk.supabase.co/storage/v1/object/public/audio/public/${note.audioPath}',
+                        onDelete: () {
+
+                        },
                       ),
-                      child: const Text('Notify'),
                     )
                   ],
                 )

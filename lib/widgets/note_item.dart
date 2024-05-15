@@ -86,12 +86,6 @@ class NoteItem extends StatelessWidget {
                 children: [
                   Text(note.description!),
                   const Spacer(),
-                  TextButton.icon(
-                      onPressed: NotificationSender().showNotification,
-                      label: const Text('Notify'),
-                      icon: const Icon(
-                        Icons.notifications, size: 16)
-                  )
                 ],
               )
             ],

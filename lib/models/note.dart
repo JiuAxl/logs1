@@ -15,6 +15,7 @@ class Note with DisplayMixin{
     this.context,
     this.noteId,
     this.uid,
+    this.audioPath,
     this.platform,
   });
 
@@ -24,6 +25,7 @@ class Note with DisplayMixin{
   final String? noteId;
   final String? uid;
   final String? platform;
+  final String? audioPath;
 
   factory Note.fromMap(Map<String, dynamic> data, id){
     return Note(
@@ -31,6 +33,7 @@ class Note with DisplayMixin{
       description: data['description'],
       uid: data['uid'],
       platform: data['platform'],
+      audioPath: data['path'],
       noteId: id
     );
   }
@@ -42,6 +45,7 @@ class Note with DisplayMixin{
         'title': title,
         'description': description,
         'uid': _firebase.currentUser?.uid,
+        'path': audioPath,
         'platform': getPlatform()
       });
     } on FirebaseException catch (e){
@@ -58,7 +62,8 @@ class Note with DisplayMixin{
       await notes.doc(noteId).update({
         'title': title,
         'description': description,
-        'platform': getPlatform()
+        'platform': getPlatform(),
+        'path': audioPath
       });
     } on FirebaseException catch (e){
       showError(

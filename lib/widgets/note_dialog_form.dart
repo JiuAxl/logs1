@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logs/models/note.dart';
+import 'package:logs/record/audio_player.dart';
+import 'package:logs/record/audio_recorder.dart';
 
 enum Mode {update, create}
 
@@ -25,17 +28,24 @@ class _NoteDialogFormState extends State<NoteDialogForm> {
   final _form = GlobalKey<FormState>();
   final noteTitleController = TextEditingController();
   final noteDescriptionController = TextEditingController();
+  bool showPlayer = false;
+  String? audioPath;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    showPlayer = false;
     if(widget.note != null){
       noteTitleController.text = widget.note!.title!;
       noteDescriptionController.text = widget.note!.description!;
+      setState(() {
+        audioPath = widget.note!.audioPath!;
+        showPlayer = true;
+      });
     }
-
   }
+
 
   void addNote(Note note) async{
     await note.addNote();
@@ -69,7 +79,8 @@ class _NoteDialogFormState extends State<NoteDialogForm> {
       addNote(
         Note(
           title: noteTitleController.text,
-          description: noteDescriptionController.text
+          description: noteDescriptionController.text,
+          audioPath: audioPath,
         )
       );
     } else {
@@ -77,7 +88,8 @@ class _NoteDialogFormState extends State<NoteDialogForm> {
         Note(
           title: noteTitleController.text,
           description: noteDescriptionController.text,
-          noteId: widget.note!.noteId!
+          noteId: widget.note!.noteId!,
+          audioPath: audioPath
         )
       );
     }
@@ -154,6 +166,26 @@ class _NoteDialogFormState extends State<NoteDialogForm> {
                           prefixIcon: Icon(Icons.notes_outlined),
                           hintText: 'Enter Note Description'
                       ),
+                    ),
+                    const SizedBox(height: 25),
+                    showPlayer
+                        ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: AudioPlayer(
+                        source: 'https://oqljocyvbovhkcpdllmk.supabase.co/storage/v1/object/public/audio/public/$audioPath',
+                        onDelete: () {
+                          setState(() => showPlayer = false);
+                        },
+                      ),
+                    )
+                        : Recorder(
+                      onStop: (path) {
+                        if (kDebugMode) print('Recorded file path: $path');
+                        setState(() {
+                          audioPath = path;
+                          showPlayer = true;
+                        });
+                      },
                     ),
                     const SizedBox(height: 25),
                     Row(
